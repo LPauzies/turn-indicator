@@ -1,0 +1,35 @@
+{
+    "id": "turn-indicator",
+    "title": "Turn Indicator - An helper for player who have their heads in the clouds",
+    "description": "A module that helps players be aware of their combat turn",
+    "authors": [
+      {
+        "name": "Cair0n",
+        "discord": "Cair0n#4955"
+      }
+      ],
+    "version": "1.0.0",
+    "esmodules": [
+        "scripts/main.js"
+    ],
+    "styles": [
+        "styles/main.css"
+    ],
+    "languages": [
+        {
+          "lang": "fr",
+          "name": "French",
+          "path": "lang/fr.json"
+        }
+    ],
+    "system": ["pf2e"],
+    "url": "https://github.com/LPauzies/turn-indicator",
+    "bugs": "https://github.com/LPauzies/turn-indicator/issues",
+    "manifest": "https://github.com/LPauzies/turn-indicator/module.json",
+    "download": "https://github.com/LPauzies/turn-indicator/releases/latest/download/turn-indicator.zip",
+    "readme": "https://github.com/LPauzies/turn-indicator/README.md",
+    "compatibility": {
+      "minimum": "9",
+      "verified": "9"
+    }
+  }
