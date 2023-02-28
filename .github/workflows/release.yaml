@@ -27,7 +27,11 @@ jobs:
 
     - name: Tag the release
       run: |
-        git tag --force v${{ steps.version.outputs.VERSION }}
+        EXISTING_TAG=`git tag -l | grep ${{ steps.version.outputs.VERSION }}`
+        if [ -n "$EXISTING_TAG" ]; then
+          git push --delete origin v${{ steps.version.outputs.VERSION }}
+        fi
+        git tag v${{ steps.version.outputs.VERSION }}
         git push --tags
 
     - name: Release with a specific version
