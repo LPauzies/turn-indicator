@@ -1,8 +1,7 @@
 name: Release
 
 on:
-  push:
-    branches: release
+  workflow_dispatch
 
 jobs:
   release:
@@ -27,10 +26,6 @@ jobs:
 
     - name: Tag the release
       run: |
-        EXISTING_TAG=`git tag -l | grep ${{ steps.version.outputs.VERSION }}`
-        if [ -n "$EXISTING_TAG" ]; then
-          git push --delete origin v${{ steps.version.outputs.VERSION }}
-        fi
         git tag v${{ steps.version.outputs.VERSION }}
         git push --tags
 
@@ -45,16 +40,4 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: 'module.json, turn-indicator.zip'
         tag: ${{ steps.version.outputs.VERSION }}
-
-    - name: Release latest
-      id: create_latest_release
-      uses: ncipollo/release-action@v1
-      with:
-        allowUpdates: true
-        name: Latest
-        draft: false
-        prerelease: false
-        token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: 'module.json, turn-indicator.zip'
-        tag: latest
         
