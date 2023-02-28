@@ -7,11 +7,8 @@
         "name": "Cair0n",
         "discord": "Cair0n#4955"
       }
-      ],
-    "version": "1.0.0",
-    "esmodules": [
-        "scripts/main.js"
     ],
+    "version": "1.0.0",
     "scripts": [
         "scripts/main.js"
     ],
