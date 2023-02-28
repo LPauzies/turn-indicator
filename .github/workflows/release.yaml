@@ -27,7 +27,7 @@ jobs:
 
     - name: Tag the release
       run: |
-        git tag v${{ steps.version.outputs.VERSION }}
+        git tag --force v${{ steps.version.outputs.VERSION }}
         git push --tags
 
     - name: Release with a specific version
