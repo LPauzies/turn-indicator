@@ -8,7 +8,7 @@
         "discord": "Cair0n#4955"
       }
     ],
-    "version": "1.0.1",
+    "version": "1.0.2",
     "scripts": [
         "scripts/main.js"
     ],
@@ -29,7 +29,7 @@
     "download": "https://github.com/LPauzies/turn-indicator/releases/latest/download/turn-indicator.zip",
     "readme": "https://github.com/LPauzies/turn-indicator/README.md",
     "compatibility": {
-      "minimum": "9",
-      "verified": "9"
+      "minimum": "10",
+      "verified": "10"
     }
   }
