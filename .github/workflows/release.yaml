@@ -41,8 +41,8 @@ jobs:
         artifacts: 'module.json, turn-indicator.zip'
         tag: v${{ steps.version.outputs.VERSION }}
 
-    - name: Release with a specific version
-      id: create_version_release
+    - name: Release latest
+      id: create_latest_release
       uses: ncipollo/release-action@v1
       with:
         allowUpdates: true
