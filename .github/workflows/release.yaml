@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push:
+    branches: release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      name: Checkout
+
+    - name: Fetch version from module.json
+      id: version
+      run: |
+        VERSION=`cat module.json | jq .version | cut -d "\"" -f 1`
+        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+    - name: Archive FoundryVTT module
+      run: |
+        zip -r ./turn-indicator.zip *
+
+    - name: Release with a specific version
+      id: create_version_release
+      uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true
+        name: ${{ steps.version.outputs.VERSION }}
+        draft: false
+        prerelease: false
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: 'module.json, turn-indicator.zip'
+        tag: ${{ steps.version.outputs.VERSION }}
+
+    - name: Release latest
+      id: create_latest_release
+      uses: ncipollo/release-action@v1
+      if: endsWith(github.ref, 'master')
+      with:
+        allowUpdates: true
+        name: Latest
+        draft: false
+        prerelease: false
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: 'module.json, turn-indicator.zip'
+        tag: latest
+        
