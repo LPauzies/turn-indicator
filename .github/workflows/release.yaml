@@ -46,3 +46,4 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: 'module.json, turn-indicator.zip'
         tag: latest
+        
