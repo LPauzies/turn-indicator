@@ -11,6 +11,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       name: Checkout
+      with:
+        ref: release
 
     - name: Fetch version from module.json
       id: version
@@ -21,6 +23,11 @@ jobs:
     - name: Archive FoundryVTT module
       run: |
         zip -r ./turn-indicator.zip *
+
+    - name: Tag the release
+      run: |
+        git tag v${{ steps.version.output.VERSION }}
+        git push --tags
 
     - name: Release with a specific version
       id: create_version_release
