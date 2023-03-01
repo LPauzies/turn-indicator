@@ -8,7 +8,10 @@
         "discord": "Cair0n#4955"
       }
     ],
-    "version": "1.0.2",
+    "version": "1.0.3",
+    "esmodules": [
+        "scripts/main.js"
+    ],
     "scripts": [
         "scripts/main.js"
     ],
@@ -22,7 +25,9 @@
           "path": "lang/fr.json"
         }
     ],
-    "system": ["pf2e"],
+    "relationships": {
+      "systems": ["pf2e"]
+    },
     "url": "https://github.com/LPauzies/turn-indicator",
     "bugs": "https://github.com/LPauzies/turn-indicator/issues",
     "manifest": "https://github.com/LPauzies/turn-indicator/releases/latest/download/module.json",
