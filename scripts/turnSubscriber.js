@@ -40,7 +40,7 @@ export class TurnSubscriber {
         ];
         displayContainer = getOrCreateDivAttachedToParentMarkup(
           TurnSubscriber.ID,
-          getOrCreateDivAttachedToParentMarkup
+          TurnSubscriber.HEADER_ID
         );
         displayContainer.innerHTML = text.join(" ");
       });
@@ -68,12 +68,12 @@ const getI18nRandomItem = (key, rangeMin, rangeMax) => {
 const getOrCreateDivAttachedToParentMarkup = (id, parentMarkupId) => {
   var container = document.getElementById(id);
   if (container == null) {
-    let div = document.createElement("div");
+    const div = document.createElement("div");
     div.id = id;
     // Foundry Element
-    let uiTop = document.getElementById(parentMarkupId);
+    const parentMarkup = document.getElementById(parentMarkupId);
     // Append it to Foundry
-    uiTop.appendChild(div);
+    parentMarkup.appendChild(div);
 
     container = document.getElementById(id);
   } else {
