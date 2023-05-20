@@ -10,12 +10,13 @@ export class TurnSubscriber {
       const gameMasterAvatar = gameMaster["avatar"];
 
       Hooks.on("updateCombat", (combat, update, options, userId) => {
-        if (verbose)
+        if (verbose) {
           console.log(`Turn for user : ${getUserFromId(userId).name}`);
-        console.log(combat);
-        console.log(update);
-        console.log(options);
-        console.log(userId);
+          console.log(combat);
+          console.log(update);
+          console.log(options);
+          console.log(userId);
+        }
 
         // Check if the combat is legit
         if (!isUsable(combat)) return;
@@ -32,17 +33,19 @@ export class TurnSubscriber {
 
         // Attach aura to current combatant in any cases
 
-        // Classic case
-        // Not hidden
-        const text = [
-          getI18nRandomItem("TurnIndicator.YourTurn", 1, 3),
-          currentCombatantName,
-        ];
-        const displayContainer = getOrCreateEmptyDivAttachedToParentMarkup(
+        // Create the parent div, attached to header
+        var displayContainer = getOrCreateEmptyDivAttachedToParentMarkup(
           TurnSubscriber.ID,
           TurnSubscriber.HEADER_ID
         );
-        displayContainer.innerHTML = text.join(" ");
+
+        // Classic case
+        // Not hidden
+        displayContainer = drawClassicTurnIndicatorBanner(
+          displayContainer,
+          currentCombatant,
+          currentRound
+        );
       });
     });
   }
@@ -58,11 +61,15 @@ const isUsable = (object) => {
   );
 };
 
+const getI18nTranslation = (key) => {
+  return game.i18n.localize(key);
+};
+
 const getI18nRandomItem = (key, rangeMin, rangeMax) => {
   const randomIndex =
     Math.floor(Math.random() * (rangeMax - rangeMin + 1)) + rangeMin;
   const i18nCompleteKey = `${key}.${randomIndex}`;
-  return game.i18n.localize(i18nCompleteKey);
+  return getI18nTranslation(i18nCompleteKey);
 };
 
 const getOrCreateEmptyDivAttachedToParentMarkup = (id, parentMarkupId) => {
@@ -77,4 +84,15 @@ const getOrCreateEmptyDivAttachedToParentMarkup = (id, parentMarkupId) => {
     container.innerHTML = "";
   }
   return container;
+};
+
+const drawClassicTurnIndicatorBanner = (div, currentCombatant, round) => {
+  const mainText = [
+    getI18nRandomItem("TurnIndicator.YourTurn", 1, 3),
+    currentCombatant?.name,
+    "!",
+  ];
+  const secondaryText = [getI18nTranslation("TurnIndicator.Round"), `${round}`];
+  div.innerHTML = mainText.join(" ") + "<br>" + secondaryText.join(" ");
+  return div;
 };
