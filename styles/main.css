@@ -1,4 +1,4 @@
-/* FadeInLeft from Animate.css */
+/* Custom FadeIn/FadeOut to match my need exactly */
 @-webkit-keyframes fadeInLeft {
   0% {
     opacity: 0;

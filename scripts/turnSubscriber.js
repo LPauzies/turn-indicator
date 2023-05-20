@@ -32,6 +32,9 @@ export class TurnSubscriber {
         // Check if the current combatant is not defeated
         if (combat?.combatant?.isDefeated) return;
 
+        // Perform reset on the DOM
+        resetTurnIndicatorBanner(TurnSubscriber.ID);
+
         const currentCombatant = combat?.combatant;
         const currentCombatantImage = currentCombatant?.img;
         const currentCombatantImageToken = currentCombatant?.actor?.img;
@@ -60,18 +63,19 @@ export class TurnSubscriber {
   }
 }
 
-const createEmptyAndHiddenDivAttachedToParentMarkup = (id, parentMarkupId) => {
-  // Delete it first
+const resetTurnIndicatorBanner = (id) => {
   var container = document.getElementById(id);
-  container.remove();
+  if (container != null) container.remove();
+};
+
+const createEmptyAndHiddenDivAttachedToParentMarkup = (id, parentMarkupId) => {
   // Create another one to trigger animations
   const div = document.createElement("div");
   div.id = id;
   const parentMarkup = document.getElementById(parentMarkupId);
   parentMarkup.appendChild(div);
-  container = document.getElementById(id);
-  setHiddenDiv(container, true);
-  return container;
+  setHiddenDiv(div, true);
+  return div;
 };
 
 const drawClassicTurnIndicatorBanner = (div, currentCombatant, round) => {
