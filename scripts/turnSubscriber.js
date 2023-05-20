@@ -38,7 +38,7 @@ export class TurnSubscriber {
           getI18nRandomItem("TurnIndicator.YourTurn", 1, 3),
           currentCombatantName,
         ];
-        displayContainer = getOrCreateDivAttachedToParentMarkup(
+        const displayContainer = getOrCreateEmptyDivAttachedToParentMarkup(
           TurnSubscriber.ID,
           TurnSubscriber.HEADER_ID
         );
@@ -65,7 +65,7 @@ const getI18nRandomItem = (key, rangeMin, rangeMax) => {
   return game.i18n.localize(i18nCompleteKey);
 };
 
-const getOrCreateDivAttachedToParentMarkup = (id, parentMarkupId) => {
+const getOrCreateEmptyDivAttachedToParentMarkup = (id, parentMarkupId) => {
   var container = document.getElementById(id);
   if (container == null) {
     const div = document.createElement("div");
