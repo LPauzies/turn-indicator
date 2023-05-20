@@ -59,9 +59,9 @@ const isUsable = (object) => {
 };
 
 const getI18nRandomItem = (key, rangeMin, rangeMax) => {
-  randomIndex =
+  const randomIndex =
     Math.floor(Math.random() * (rangeMax - rangeMin + 1)) + rangeMin;
-  i18nCompleteKey = `${key}.${randomIndex}`;
+  const i18nCompleteKey = `${key}.${randomIndex}`;
   return game.i18n.localize(i18nCompleteKey);
 };
 
