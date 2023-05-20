@@ -7,8 +7,3 @@ export const isObjectUsable = (object) => {
 
 // DOM related
 export const setHiddenDiv = (div, isHidden) => (div.hidden = isHidden);
-
-export const removeElementById = (id) => {
-  const element = document.getElementById(id);
-  if (element != null) element.remove();
-};

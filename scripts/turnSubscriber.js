@@ -1,4 +1,4 @@
-import { isObjectUsable, setHiddenDiv, removeElementById } from "./utils.js";
+import { isObjectUsable, setHiddenDiv } from "./utils.js";
 import {
   getUserFromId,
   getI18nTranslation,
@@ -47,7 +47,7 @@ export class TurnSubscriber {
         );
 
         // Classic case
-        // Not hidden
+        // Character is not hidden
         displayContainer =
           attachCSSClassesClassicTurnIndicatorBanner(displayContainer);
         displayContainer = drawClassicTurnIndicatorBanner(
@@ -55,32 +55,21 @@ export class TurnSubscriber {
           currentCombatant,
           currentRound
         );
-
-        // Remove banner
-        const timeoutBannerId = setTimeout(
-          removeClassicTurnIndicatorBanner,
-          5000,
-          displayContainer
-        );
-
-        // Post process stuff
-        clearTimeout(timeoutBannerId);
       });
     });
   }
 }
 
 const createEmptyAndHiddenDivAttachedToParentMarkup = (id, parentMarkupId) => {
+  // Delete it first
   var container = document.getElementById(id);
-  if (container == null) {
-    const div = document.createElement("div");
-    div.id = id;
-    const parentMarkup = document.getElementById(parentMarkupId);
-    parentMarkup.appendChild(div);
-    container = document.getElementById(id);
-  } else {
-    container.innerHTML = "";
-  }
+  container.remove();
+  // Create another one to trigger animations
+  const div = document.createElement("div");
+  div.id = id;
+  const parentMarkup = document.getElementById(parentMarkupId);
+  parentMarkup.appendChild(div);
+  container = document.getElementById(id);
   setHiddenDiv(container, true);
   return container;
 };
@@ -98,12 +87,6 @@ const drawClassicTurnIndicatorBanner = (div, currentCombatant, round) => {
 };
 
 const attachCSSClassesClassicTurnIndicatorBanner = (div) => {
-  div.classList.add("animate__animated", "animate__fadeInLeft");
+  div.classList.add("fade-in-left", "fade-out-left");
   return div;
-};
-
-const removeClassicTurnIndicatorBanner = (div) => {
-  div.classList.remove("animate__fadeInLeft");
-  div.classList.add("animate__fadeOutLeft");
-  removeElementById(TurnSubscriber.ID);
 };
