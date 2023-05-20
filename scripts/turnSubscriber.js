@@ -1,3 +1,14 @@
+import {
+  isObjectUsable,
+  setHiddenDiv,
+  removeElementById,
+} from "./utils.jsisObjectUsable";
+import {
+  getUserFromId,
+  getI18nTranslation,
+  getI18nRandomItem,
+} from "./foundryUtils.js";
+
 export class TurnSubscriber {
   static ID = "TurnSubscriberId";
   static HEADER_ID = "ui-top";
@@ -19,7 +30,7 @@ export class TurnSubscriber {
         }
 
         // Check if the combat is legit
-        if (!isUsable(combat)) return;
+        if (!isObjectUsable(combat)) return;
         // Check if the combat has started
         if (!combat?.started) return;
         // Check if the current combatant is not defeated
@@ -34,52 +45,36 @@ export class TurnSubscriber {
         // Attach aura to current combatant in any cases
 
         // Create the parent div, empty and attached to header
-        var displayContainer =
-          getOrCreateEmptyAndHiddenDivAttachedToParentMarkup(
-            TurnSubscriber.ID,
-            TurnSubscriber.HEADER_ID
-          );
+        var displayContainer = createEmptyAndHiddenDivAttachedToParentMarkup(
+          TurnSubscriber.ID,
+          TurnSubscriber.HEADER_ID
+        );
 
         // Classic case
         // Not hidden
-        displayContainer = attachClassicTurnCSSClassesBanner(displayContainer);
+        displayContainer =
+          attachCSSClassesClassicTurnIndicatorBanner(displayContainer);
         displayContainer = drawClassicTurnIndicatorBanner(
           displayContainer,
           currentCombatant,
           currentRound
         );
+
+        // Remove banner
+        timeoutBannerId = setTimeout(
+          removeClassicTurnIndicatorBanner,
+          5000,
+          displayContainer
+        );
+
+        // Post process stuff
+        clearTimeout(timeoutBannerId);
       });
     });
   }
 }
 
-const getUserFromId = (userId) => {
-  return game.users.find((user) => user.id === userId);
-};
-
-const isUsable = (object) => {
-  return (
-    object !== null && object !== undefined && Object.keys(object).length !== 0
-  );
-};
-
-const getI18nTranslation = (key) => {
-  return game.i18n.localize(key);
-};
-
-const getI18nRandomItem = (key, rangeMin, rangeMax) => {
-  const randomIndex =
-    Math.floor(Math.random() * (rangeMax - rangeMin + 1)) + rangeMin;
-  const i18nCompleteKey = `${key}.${randomIndex}`;
-  return getI18nTranslation(i18nCompleteKey);
-};
-
-const setHiddenDiv = (div, isHidden) => (div.hidden = isHidden);
-
-const getOrCreateEmptyAndHiddenDivAttachedToParentMarkup = (
-  id,
-  parentMarkupId
-) => {
+const createEmptyAndHiddenDivAttachedToParentMarkup = (id, parentMarkupId) => {
   var container = document.getElementById(id);
   if (container == null) {
     const div = document.createElement("div");
@@ -106,7 +101,13 @@ const drawClassicTurnIndicatorBanner = (div, currentCombatant, round) => {
   return div;
 };
 
-const attachClassicTurnCSSClassesBanner = (div) => {
-  div.classList.add("animate__animated", "animate__fadeInRight");
+const attachCSSClassesClassicTurnIndicatorBanner = (div) => {
+  div.classList.add("animate__animated", "animate__fadeInLeft");
   return div;
+};
+
+const removeClassicTurnIndicatorBanner = (div) => {
+  div.classList.remove("animate__fadeInLeft");
+  div.classList.add("animate__fadeOutLeft");
+  removeElementById(TurnSubscriber.ID);
 };
