@@ -1,8 +1,4 @@
-import {
-  isObjectUsable,
-  setHiddenDiv,
-  removeElementById,
-} from "./utils.jsisObjectUsable";
+import { isObjectUsable, setHiddenDiv, removeElementById } from "./utils.js";
 import {
   getUserFromId,
   getI18nTranslation,
