@@ -1,4 +1,4 @@
-import { TurnSubscriber } from "./turn_subscriber.js";
+import { TurnSubscriber } from "./turnSubscriber.js";
 
 const turnSubscriber = new TurnSubscriber();
 
