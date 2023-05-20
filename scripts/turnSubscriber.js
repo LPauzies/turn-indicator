@@ -33,14 +33,16 @@ export class TurnSubscriber {
 
         // Attach aura to current combatant in any cases
 
-        // Create the parent div, attached to header
-        var displayContainer = getOrCreateEmptyDivAttachedToParentMarkup(
-          TurnSubscriber.ID,
-          TurnSubscriber.HEADER_ID
-        );
+        // Create the parent div, empty and attached to header
+        var displayContainer =
+          getOrCreateEmptyAndHiddenDivAttachedToParentMarkup(
+            TurnSubscriber.ID,
+            TurnSubscriber.HEADER_ID
+          );
 
         // Classic case
         // Not hidden
+        displayContainer = attachClassicTurnCSSClassesBanner(displayContainer);
         displayContainer = drawClassicTurnIndicatorBanner(
           displayContainer,
           currentCombatant,
@@ -72,7 +74,12 @@ const getI18nRandomItem = (key, rangeMin, rangeMax) => {
   return getI18nTranslation(i18nCompleteKey);
 };
 
-const getOrCreateEmptyDivAttachedToParentMarkup = (id, parentMarkupId) => {
+const setHiddenDiv = (div, isHidden) => (div.hidden = isHidden);
+
+const getOrCreateEmptyAndHiddenDivAttachedToParentMarkup = (
+  id,
+  parentMarkupId
+) => {
   var container = document.getElementById(id);
   if (container == null) {
     const div = document.createElement("div");
@@ -83,6 +90,7 @@ const getOrCreateEmptyDivAttachedToParentMarkup = (id, parentMarkupId) => {
   } else {
     container.innerHTML = "";
   }
+  setHiddenDiv(container, true);
   return container;
 };
 
@@ -94,5 +102,11 @@ const drawClassicTurnIndicatorBanner = (div, currentCombatant, round) => {
   ];
   const secondaryText = [getI18nTranslation("TurnIndicator.Round"), `${round}`];
   div.innerHTML = mainText.join(" ") + "<br>" + secondaryText.join(" ");
+  setHiddenDiv(div, false);
+  return div;
+};
+
+const attachClassicTurnCSSClassesBanner = (div) => {
+  div.classList.add("animate__animated", "animate__fadeInRight");
   return div;
 };

@@ -11,7 +11,7 @@
   ],
   "version": "1.0.18",
   "esmodules": ["./scripts/main.js", "./scripts/turnSubscriber.js"],
-  "styles": ["./styles/main.css"],
+  "styles": ["./styles/main.css", "./styles/animate.css"],
   "languages": [
     {
       "lang": "fr",
