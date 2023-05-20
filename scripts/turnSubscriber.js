@@ -57,7 +57,7 @@ export class TurnSubscriber {
         );
 
         // Remove banner
-        timeoutBannerId = setTimeout(
+        const timeoutBannerId = setTimeout(
           removeClassicTurnIndicatorBanner,
           5000,
           displayContainer
