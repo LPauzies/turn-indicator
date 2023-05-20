@@ -70,11 +70,8 @@ const getOrCreateDivAttachedToParentMarkup = (id, parentMarkupId) => {
   if (container == null) {
     const div = document.createElement("div");
     div.id = id;
-    // Foundry Element
     const parentMarkup = document.getElementById(parentMarkupId);
-    // Append it to Foundry
     parentMarkup.appendChild(div);
-
     container = document.getElementById(id);
   } else {
     container.innerHTML = "";
