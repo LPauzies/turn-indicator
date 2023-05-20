@@ -1,55 +1,57 @@
 name: Release
 
 on:
-  workflow_dispatch
+  push:
+    branches:
+      - release
+  workflow_dispatch:
 
 jobs:
   release:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-      name: Checkout
-      with:
-        fetch-depth: 0
-        ref: release
+      - uses: actions/checkout@v3
+        name: Checkout
+        with:
+          fetch-depth: 0
+          ref: release
 
-    - name: Fetch version from module.json
-      id: version
-      run: |
-        VERSION=`cat module.json | jq .version | cut -d "\"" -f 2`
-        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+      - name: Fetch version from module.json
+        id: version
+        run: |
+          VERSION=`cat module.json | jq .version | cut -d "\"" -f 2`
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
-    - name: Archive FoundryVTT module
-      run: |
-        zip -r ./turn-indicator.zip *
+      - name: Archive FoundryVTT module
+        run: |
+          zip -r ./turn-indicator.zip *
 
-    - name: Tag the release
-      run: |
-        git tag v${{ steps.version.outputs.VERSION }}
-        git push --tags
+      - name: Tag the release
+        run: |
+          git tag v${{ steps.version.outputs.VERSION }}
+          git push --tags
 
-    - name: Release with a specific version
-      id: create_version_release
-      uses: ncipollo/release-action@v1
-      with:
-        allowUpdates: false
-        name: v${{ steps.version.outputs.VERSION }}
-        draft: false
-        prerelease: false
-        token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: 'module.json, turn-indicator.zip'
-        tag: v${{ steps.version.outputs.VERSION }}
+      - name: Release with a specific version
+        id: create_version_release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: false
+          name: v${{ steps.version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "module.json, turn-indicator.zip"
+          tag: v${{ steps.version.outputs.VERSION }}
 
-    - name: Release latest
-      id: create_latest_release
-      uses: ncipollo/release-action@v1
-      with:
-        allowUpdates: true
-        name: latest
-        draft: false
-        prerelease: false
-        token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: 'module.json, turn-indicator.zip'
-        tag: latest
-        
+      - name: Release latest
+        id: create_latest_release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          name: latest
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "module.json, turn-indicator.zip"
+          tag: latest
