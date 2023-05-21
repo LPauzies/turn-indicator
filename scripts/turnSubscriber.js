@@ -1,12 +1,13 @@
-import { isObjectUsable, setHiddenDiv } from "./utils.js";
-import {
-  getUserFromId,
-  getI18nTranslation,
-  getI18nRandomItem,
-} from "./foundryUtils.js";
+import { isObjectUsable } from "./utils.js";
+import { getUserFromId } from "./foundryUtils.js";
+import { drawImageElement, drawTextElement } from "./drawing.js";
 
 export class TurnSubscriber {
-  static ID = "TurnSubscriberId";
+  static BANNER_ID = "TurnSubscriberBannerId";
+  static IMAGE_ID = "TurnSubscriberImageId";
+  static TEXT_ID = "TurnSubscriberTextId";
+  static MAIN_TEXT_ID = "TurnSubscriberMainTextId";
+  static SECONDARY_TEXT_ID = "TurnSubscriberSecondaryTextId";
   static HEADER_ID = "ui-top";
 
   start(verbose = true) {
@@ -30,9 +31,6 @@ export class TurnSubscriber {
         if (combat?.combatant?.isDefeated) return;
 
         const currentCombatant = combat?.combatant;
-        const currentCombatantImage = currentCombatant?.img;
-        const currentCombatantImageToken = currentCombatant?.actor?.img;
-        const currentCombatantName = currentCombatant?.name;
         const currentRound = combat?.current?.round;
 
         // Update global css properties for this round
@@ -41,7 +39,9 @@ export class TurnSubscriber {
         // Attach aura to current combatant in any cases
 
         // Create the parent div, empty and attached to header
-        var displayContainer = buildAndReplaceBannerDiv(TurnSubscriber.ID);
+        var displayContainer = buildAndReplaceBannerDiv(
+          TurnSubscriber.BANNER_ID
+        );
 
         // Classic case
         // Character is not hidden
@@ -76,7 +76,6 @@ const updateRootSelectorPropertiesForCurrentPlayer = (
   const currentPlayer = currentCombatant?.players[0];
   const isPC = currentCombatant?.hasPlayerOwner && currentPlayer.active;
   if (verbose) {
-    console.log(currentCombatant);
     console.log(
       `Current character is controlled by : ${
         isPC ? currentPlayer.name : "Gamemaster"
@@ -102,13 +101,20 @@ const buildAndReplaceBannerDiv = (id) => {
 };
 
 const drawClassicTurnIndicatorBanner = (div, currentCombatant, round) => {
-  const mainText = [
-    getI18nRandomItem("TurnIndicator.YourTurn", 1, 3),
-    currentCombatant?.name,
-    "!",
-  ];
-  const secondaryText = [getI18nTranslation("TurnIndicator.Round"), `${round}`];
-  div.innerHTML = mainText.join(" ") + "<br>" + secondaryText.join(" ");
+  const currentCombatantActorImage = currentCombatant?.actor?.img;
+  const imageElement = drawImageElement(
+    TurnSubscriber.IMAGE_ID,
+    currentCombatantActorImage
+  );
+  const currentCombatantName = currentCombatant?.name;
+  const textElement = drawTextElement(
+    TurnSubscriber.TEXT_ID,
+    currentCombatantName,
+    round
+  );
+
+  div.appendChild(imageElement);
+  div.appendChild(textElement);
 
   return div;
 };

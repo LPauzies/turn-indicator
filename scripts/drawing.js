@@ -1,0 +1,46 @@
+import { getI18nRandomItem, getI18nTranslation } from "./foundryUtils.js";
+
+export const drawImageElement = (id, currentCombatantActorImage) => {
+  const imgElement = document.createElement("img");
+  imgElement.id = id;
+  imgElement.src = currentCombatantActorImage;
+  return imgElement;
+};
+
+const _drawMainTextElement = (id, currentCombatantName) => {
+  const mainText = [
+    getI18nRandomItem("TurnIndicator.YourTurn", 1, 3),
+    currentCombatantName,
+    "!",
+  ];
+  const mainTextElement = document.createElement("span");
+  mainTextElement.id = id;
+  mainTextElement.innerText = mainText.join(" ");
+  return mainTextElement;
+};
+
+const _drawSecondaryTextElement = (id, round) => {
+  const secondaryText = [getI18nTranslation("TurnIndicator.Round"), `${round}`];
+  const secondaryTextElement = document.createElement("span");
+  secondaryTextElement.id = id;
+  secondaryTextElement.innerText = secondaryText.join(" ");
+  return secondaryTextElement;
+};
+
+export const drawTextElement = (id, currentCombatantName, round) => {
+  const mainTextElement = _drawMainTextElement(
+    TurnSubscriber.MAIN_TEXT_ID,
+    currentCombatantName
+  );
+  const secondaryTextElement = _drawSecondaryTextElement(
+    TurnSubscriber.SECONDARY_TEXT_ID,
+    round
+  );
+  const textElement = document.createElement("div");
+  textElement.id = id;
+  const brElement = document.createElement("br");
+  textElement.appendChild(mainTextElement);
+  textElement.appendChild(brElement);
+  textElement.appendChild(secondaryTextElement);
+  return textElement;
+};
