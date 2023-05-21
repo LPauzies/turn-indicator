@@ -4,11 +4,7 @@ export const drawImageElement = (id, currentCombatantActorImage) => {
   const imgElement = document.createElement("img");
   imgElement.id = id;
   imgElement.src = currentCombatantActorImage;
-  imgElement.classList.add(
-    "animate__animated",
-    "animate__fadeIn",
-    "animate__slow"
-  );
+  imgElement.classList.add("animate__animated", "animate__fadeIn");
   return imgElement;
 };
 
