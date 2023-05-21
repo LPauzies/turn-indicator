@@ -7,7 +7,7 @@ export const drawImageElement = (id, currentCombatantActorImage) => {
   imgElement.classList.add(
     "animate__animated",
     "animate__fadeIn",
-    "animate__delay-1s"
+    "animate__slow"
   );
   return imgElement;
 };
