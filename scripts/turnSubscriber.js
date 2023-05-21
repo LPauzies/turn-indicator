@@ -109,6 +109,8 @@ const drawClassicTurnIndicatorBanner = (div, currentCombatant, round) => {
   const currentCombatantName = currentCombatant?.name;
   const textElement = drawTextElement(
     TurnSubscriber.TEXT_ID,
+    TurnSubscriber.MAIN_TEXT_ID,
+    TurnSubscriber.SECONDARY_TEXT_ID,
     currentCombatantName,
     round
   );

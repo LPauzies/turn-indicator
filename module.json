@@ -1,6 +1,6 @@
 {
   "id": "turn-indicator",
-  "title": "Turn Indicator - An helper for player who have their heads in the clouds",
+  "title": "Turn Indicator",
   "description": "A module that helps players be aware of their combat turn",
   "authors": [
     {
@@ -9,7 +9,7 @@
       "discord": "Cair0n#4955"
     }
   ],
-  "version": "1.0.33",
+  "version": "1.0.34",
   "esmodules": [
     "./scripts/main.js",
     "./scripts/turnSubscriber.js",

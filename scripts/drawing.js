@@ -27,13 +27,19 @@ const _drawSecondaryTextElement = (id, round) => {
   return secondaryTextElement;
 };
 
-export const drawTextElement = (id, currentCombatantName, round) => {
+export const drawTextElement = (
+  id,
+  mainTextId,
+  secondaryTextId,
+  currentCombatantName,
+  round
+) => {
   const mainTextElement = _drawMainTextElement(
-    TurnSubscriber.MAIN_TEXT_ID,
+    mainTextId,
     currentCombatantName
   );
   const secondaryTextElement = _drawSecondaryTextElement(
-    TurnSubscriber.SECONDARY_TEXT_ID,
+    secondaryTextId,
     round
   );
   const textElement = document.createElement("div");
