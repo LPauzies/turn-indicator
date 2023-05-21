@@ -36,7 +36,7 @@ export class TurnSubscriber {
         const currentRound = combat?.current?.round;
 
         // Update global css properties for this round
-        updateRootSelectorPropertiesForCurrentPlayer(currentCombatant);
+        updateRootSelectorPropertiesForCurrentPlayer(currentCombatant, verbose);
 
         // Attach aura to current combatant in any cases
 
@@ -75,17 +75,20 @@ const updateRootSelectorPropertiesForCurrentPlayer = (
 ) => {
   const currentPlayer = currentCombatant?.players[0];
   const isPC = currentCombatant?.hasPlayerOwner && currentPlayer.active;
-  if (verbose)
+  if (verbose) {
+    console.log(currentCombatant);
     console.log(
       `Current character is controlled by : ${
         isPC ? currentPlayer.name : "Gamemaster"
       }`
     );
+  }
+
   const color = isPC ? currentPlayer["color"] : getGM()["color"];
   // Update root selector
   const rootSelector = document.querySelector(":root");
   rootSelector.style.setProperty("--turnIndicatorBorderBannerColor", color);
-  rootSelector.style.setProperty("--turnIndicatorBannerColor", `${color}80`);
+  rootSelector.style.setProperty("--turnIndicatorBannerColor", `${color}85`);
 };
 
 const buildAndReplaceBannerDiv = (id) => {
