@@ -1,19 +1,25 @@
 import { getI18nTranslation } from "./foundryUtils.js";
 
-export const drawImageElement = (id, currentCombatantActorImage) => {
+export const drawImageElement = (id, currentCombatantActorImage, isHidden) => {
   const imgElement = document.createElement("img");
   imgElement.id = id;
   imgElement.src = currentCombatantActorImage;
   imgElement.classList.add("animate__animated", "animate__fadeIn");
+  if (isHidden) {
+    imgElement.classList.add("hidden");
+  }
   return imgElement;
 };
 
-const _drawMainTextElement = (id, currentCombatantName) => {
-  const mainText = [
-    getI18nTranslation("TurnIndicator.YourTurn"),
-    currentCombatantName,
-    "!",
-  ];
+const _drawMainTextElement = (id, currentCombatantName, isHidden) => {
+  const mainText = [];
+  if (isHidden) {
+    mainText.push(getI18nTranslation("TurnIndicator.SomethingHappens"));
+  } else {
+    mainText.push(getI18nTranslation("TurnIndicator.YourTurn"));
+    mainText.push(currentCombatantName);
+  }
+  mainText.push("!");
   const mainTextElement = document.createElement("span");
   mainTextElement.id = id;
   mainTextElement.innerText = mainText.join(" ");
@@ -33,11 +39,13 @@ export const drawTextElement = (
   mainTextId,
   secondaryTextId,
   currentCombatantName,
-  round
+  round,
+  isHidden
 ) => {
   const mainTextElement = _drawMainTextElement(
     mainTextId,
-    currentCombatantName
+    currentCombatantName,
+    isHidden
   );
   const secondaryTextElement = _drawSecondaryTextElement(
     secondaryTextId,

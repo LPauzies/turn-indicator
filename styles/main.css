@@ -59,3 +59,7 @@
   height: 300px;
   object-fit: contain;
 }
+
+#TurnSubscriberImageId.hidden {
+  filter: contrast(0) saturate(2000%) brightness(0%) blur(1px);
+}

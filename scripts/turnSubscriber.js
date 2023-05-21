@@ -43,8 +43,6 @@ export class TurnSubscriber {
           TurnSubscriber.BANNER_ID
         );
 
-        // Classic case
-        // Character is not hidden
         displayContainer = drawClassicTurnIndicatorBanner(
           displayContainer,
           currentCombatant,
@@ -104,7 +102,8 @@ const drawClassicTurnIndicatorBanner = (div, currentCombatant, round) => {
   const currentCombatantActorImage = currentCombatant?.actor?.img;
   const imageElement = drawImageElement(
     TurnSubscriber.IMAGE_ID,
-    currentCombatantActorImage
+    currentCombatantActorImage,
+    currentCombatant.hidden
   );
   const currentCombatantName = currentCombatant?.name;
   const textElement = drawTextElement(
@@ -112,7 +111,8 @@ const drawClassicTurnIndicatorBanner = (div, currentCombatant, round) => {
     TurnSubscriber.MAIN_TEXT_ID,
     TurnSubscriber.SECONDARY_TEXT_ID,
     currentCombatantName,
-    round
+    round,
+    currentCombatant.hidden
   );
 
   div.appendChild(imageElement);
