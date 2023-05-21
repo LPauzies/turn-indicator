@@ -9,7 +9,7 @@
       "discord": "Cair0n#4955"
     }
   ],
-  "version": "1.0.45",
+  "version": "1.0.46",
   "esmodules": [
     "./scripts/main.js",
     "./scripts/turnSubscriber.js",
@@ -22,6 +22,11 @@
       "lang": "fr",
       "name": "French",
       "path": "./lang/fr.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "./lang/en.json"
     }
   ],
   "url": "https://github.com/LPauzies/turn-indicator",
