@@ -104,5 +104,5 @@ const fadeOutCSSClassesClassicTurnIndicatorBanner = (div, verbose) => {
     if (verbose) console.log("Pushing fading out left animation.");
     div.classList.remove("animate__fadeInLeft");
     div.classList.add("animate__fadeOutLeft");
-  }, 3000);
+  }, 5000);
 };
