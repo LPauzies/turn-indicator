@@ -32,9 +32,6 @@ export class TurnSubscriber {
         // Check if the current combatant is not defeated
         if (combat?.combatant?.isDefeated) return;
 
-        // Perform reset on the DOM
-        resetTurnIndicatorBanner(TurnSubscriber.ID);
-
         const currentCombatant = combat?.combatant;
         const currentCombatantImage = currentCombatant?.img;
         const currentCombatantImageToken = currentCombatant?.actor?.img;
@@ -44,38 +41,42 @@ export class TurnSubscriber {
         // Attach aura to current combatant in any cases
 
         // Create the parent div, empty and attached to header
-        var displayContainer = createEmptyAndHiddenDivAttachedToParentMarkup(
-          TurnSubscriber.ID,
-          TurnSubscriber.HEADER_ID
-        );
+        var displayContainer = buildAndReplaceBannerDiv(TurnSubscriber.ID);
 
         // Classic case
         // Character is not hidden
-        displayContainer =
-          attachCSSClassesClassicTurnIndicatorBanner(displayContainer);
+        displayContainer = attachCSSClassesAnimation(displayContainer);
         displayContainer = drawClassicTurnIndicatorBanner(
           displayContainer,
           currentCombatant,
           currentRound
         );
+
+        publishBannerDiv(displayContainer, TurnSubscriber.HEADER_ID);
+
+        setTimeout(function () {
+          console.log("Triggered !");
+          displayContainer.classList.remove("animate__fadeInLeft");
+          displayContainer.classList.add("animate__fadeOutLeft");
+        }, 3000);
       });
     });
   }
 }
 
-const resetTurnIndicatorBanner = (id) => {
+const buildAndReplaceBannerDiv = (id) => {
   var container = document.getElementById(id);
   if (container != null) container.remove();
+  // Create the div
+  const div = document.getElementById("div");
+  div.id = id;
+  return div;
 };
 
-const createEmptyAndHiddenDivAttachedToParentMarkup = (id, parentMarkupId) => {
-  // Create another one to trigger animations
-  const div = document.createElement("div");
-  div.id = id;
+const publishBannerDiv = (div, parentMarkupId) => {
+  // Attach to parentMarkup
   const parentMarkup = document.getElementById(parentMarkupId);
   parentMarkup.appendChild(div);
-  setHiddenDiv(div, true);
-  return div;
 };
 
 const drawClassicTurnIndicatorBanner = (div, currentCombatant, round) => {
@@ -86,11 +87,18 @@ const drawClassicTurnIndicatorBanner = (div, currentCombatant, round) => {
   ];
   const secondaryText = [getI18nTranslation("TurnIndicator.Round"), `${round}`];
   div.innerHTML = mainText.join(" ") + "<br>" + secondaryText.join(" ");
-  setHiddenDiv(div, false);
   return div;
 };
 
-const attachCSSClassesClassicTurnIndicatorBanner = (div) => {
-  div.classList.add("fade-in-left", "fade-out-left");
+const attachCSSClassesAnimation = (div) => {
+  div.classList.add(
+    "animate__animated",
+    "animate__delay-1s",
+    "animate__fadeInLeft"
+  );
   return div;
+};
+
+const deleteCSSClassesClassicTurnIndicatorBanner = (div) => {
+  div.classList.remove("animate__fadeInLeft");
 };
