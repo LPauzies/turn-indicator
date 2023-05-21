@@ -68,7 +68,7 @@ const buildAndReplaceBannerDiv = (id) => {
   var container = document.getElementById(id);
   if (container != null) container.remove();
   // Create the div
-  const div = document.getElementById("div");
+  const div = document.createElement("div");
   div.id = id;
   return div;
 };
