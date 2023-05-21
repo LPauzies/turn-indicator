@@ -6,6 +6,8 @@
 #TurnSubscriberBannerId {
   width: 100%;
 
+  text-overflow: clip;
+
   /* Margin */
   margin-top: 15%;
   /* Padding */
@@ -52,6 +54,8 @@
   z-index: 1;
   top: -100px;
   border-width: 0px;
+  width: auto;
   max-width: 300px;
+  height: 300px;
   object-fit: contain;
 }
