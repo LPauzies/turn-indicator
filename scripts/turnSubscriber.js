@@ -52,14 +52,16 @@ export class TurnSubscriber {
         );
 
         // FadeInLeft
-        displayContainer =
-          fadeInCSSClassesClassicTurnIndicatorBanner(displayContainer);
+        displayContainer = fadeInCSSClassesClassicTurnIndicatorBanner(
+          displayContainer,
+          verbose
+        );
 
         // Publish the banner on the FoundryVTT DOM
         publishBannerDiv(displayContainer, TurnSubscriber.HEADER_ID);
 
         // FadeOutLeft
-        fadeOutCSSClassesClassicTurnIndicatorBanner(displayContainer);
+        fadeOutCSSClassesClassicTurnIndicatorBanner(displayContainer, verbose);
       });
     });
   }
