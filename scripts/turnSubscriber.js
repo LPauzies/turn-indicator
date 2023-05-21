@@ -12,9 +12,6 @@ export class TurnSubscriber {
   start(verbose = true) {
     Hooks.on("ready", () => {
       if (verbose) console.log("Starting module : TurnSubscriber");
-      const gameMaster = game.users.find((user) => user.isGM && user.active);
-      const gameMasterColor = gameMaster["color"];
-      const gameMasterAvatar = gameMaster["avatar"];
 
       Hooks.on("updateCombat", (combat, update, options, userId) => {
         if (verbose) {
@@ -37,6 +34,9 @@ export class TurnSubscriber {
         const currentCombatantImageToken = currentCombatant?.actor?.img;
         const currentCombatantName = currentCombatant?.name;
         const currentRound = combat?.current?.round;
+
+        // Update global css properties for this round
+        updateRootSelectorPropertiesForCurrentPlayer(currentCombatant);
 
         // Attach aura to current combatant in any cases
 
@@ -67,12 +67,34 @@ export class TurnSubscriber {
   }
 }
 
+const getGM = () => game.users.find((user) => user.isGM && user.active);
+
+const updateRootSelectorPropertiesForCurrentPlayer = (
+  currentCombatant,
+  verbose
+) => {
+  const currentPlayer = currentCombatant?.players[0];
+  const isPC = currentCombatant?.hasPlayerOwner && currentPlayer.active;
+  if (verbose)
+    console.log(
+      `Current character is controlled by : ${
+        isPC ? currentPlayer.name : "Gamemaster"
+      }`
+    );
+  const color = isPC ? currentPlayer["color"] : getGM()["color"];
+  // Update root selector
+  const rootSelector = document.querySelector(":root");
+  rootSelector.style.setProperty("--turnIndicatorBorderBannerColor", color);
+  rootSelector.style.setProperty("--turnIndicatorBannerColor", `${color}80`);
+};
+
 const buildAndReplaceBannerDiv = (id) => {
   var container = document.getElementById(id);
   if (container != null) container.remove();
   // Create the div
   const div = document.createElement("div");
   div.id = id;
+  // Build the structure of the div
   return div;
 };
 
@@ -84,6 +106,7 @@ const drawClassicTurnIndicatorBanner = (div, currentCombatant, round) => {
   ];
   const secondaryText = [getI18nTranslation("TurnIndicator.Round"), `${round}`];
   div.innerHTML = mainText.join(" ") + "<br>" + secondaryText.join(" ");
+
   return div;
 };
 

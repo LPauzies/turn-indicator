@@ -9,13 +9,13 @@
       "discord": "Cair0n#4955"
     }
   ],
-  "version": "1.0.30",
+  "version": "1.0.31",
   "esmodules": [
     "./scripts/main.js",
     "./scripts/turnSubscriber.js",
     "./scripts/utils.js"
   ],
-  "styles": ["./styles/animate.css"],
+  "styles": ["./styles/main.css", "./styles/animate.css"],
   "languages": [
     {
       "lang": "fr",

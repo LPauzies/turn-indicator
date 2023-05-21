@@ -1,62 +1,27 @@
-/* Custom FadeIn/FadeOut to match my need exactly */
-@-webkit-keyframes fadeInLeft {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
-  }
-  to {
-    opacity: 1;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-  }
-}
-@keyframes fadeInLeft {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
-  }
-  to {
-    opacity: 1;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-  }
+:root{
+  --turnIndicatorBorderBannerColor: rgb(255, 255, 255);
+  --turnIndicatorBannerColor: rgb(255, 255, 255);
 }
 
-.fade-in-left {
-  -webkit-animation-name: fadeInLeft;
-  animation-name: fadeInLeft;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-}
+#TurnSubscriberId {
+  width: 100%;
 
-@-webkit-keyframes fadeOutLeft {
-  0% {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
-  }
-}
-@keyframes fadeOutLeft {
-  0% {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
-  }
-}
+  margin-top: 20%;
 
-.fade-out-left {
-  -webkit-animation-name: fadeOutLeft;
-  animation-name: fadeOutLeft;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-delay: 3s;
-  animation-delay: 3s;
+  background-color: var(--turnIndicatorBannerColor);
+  border-top: var(--turnIndicatorBorderBannerColor);
+  border-top-width: 5px;
+  border-top-style: solid;
+  border-bottom: var(--turnIndicatorBorderBannerColor);
+  border-bottom-width: 5px;
+  border-bottom-style: solid;
+
+  /* Text related */
+  color: lightgray;
+  text-shadow: 2px 2px 5px black;
+
+  /* Forward animation fill mode */
+  animation-fill-mode: forwards;
+  /* Let it in background */
+  z-index: -1;
 }
