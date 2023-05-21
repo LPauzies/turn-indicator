@@ -6,7 +6,7 @@ export const drawImageElement = (id, currentCombatantActorImage, isHidden) => {
   imgElement.src = currentCombatantActorImage;
   imgElement.classList.add("animate__animated", "animate__fadeIn");
   if (isHidden) {
-    imgElement.classList.add("hidden");
+    imgElement.classList.add("turnSubscriberImageHidden");
   }
   return imgElement;
 };
