@@ -9,7 +9,7 @@
       "discord": "Cair0n#4955"
     }
   ],
-  "version": "1.0.39",
+  "version": "1.0.40",
   "esmodules": [
     "./scripts/main.js",
     "./scripts/turnSubscriber.js",
