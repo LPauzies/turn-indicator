@@ -76,12 +76,6 @@ const buildAndReplaceBannerDiv = (id) => {
   return div;
 };
 
-const publishBannerDiv = (div, parentMarkupId) => {
-  // Attach to parentMarkup
-  const parentMarkup = document.getElementById(parentMarkupId);
-  parentMarkup.appendChild(div);
-};
-
 const drawClassicTurnIndicatorBanner = (div, currentCombatant, round) => {
   const mainText = [
     getI18nRandomItem("TurnIndicator.YourTurn", 1, 3),
@@ -97,6 +91,12 @@ const fadeInCSSClassesClassicTurnIndicatorBanner = (div, verbose) => {
   if (verbose) console.log("Pushing fading in left animation.");
   div.classList.add("animate__animated", "animate__fadeInLeft");
   return div;
+};
+
+const publishBannerDiv = (div, parentMarkupId) => {
+  // Attach to parentMarkup
+  const parentMarkup = document.getElementById(parentMarkupId);
+  parentMarkup.appendChild(div);
 };
 
 const fadeOutCSSClassesClassicTurnIndicatorBanner = (div, verbose) => {
