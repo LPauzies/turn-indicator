@@ -1,9 +1,5 @@
 {
   "TurnIndicator.Round": "Round",
-  "TurnIndicator.Turn": "Tour",
-  "TurnIndicator.NextRound": "Suivant",
   "TurnIndicator.SomethingHappens": "Quelque chose se trame...",
-  "TurnIndicator.YourTurn.1": "C'est ton tour",
-  "TurnIndicator.YourTurn.2": "A toi de jouer",
-  "TurnIndicator.YourTurn.3": "Montre nous ton talent"
+  "TurnIndicator.YourTurn": "C'est ton tour"
 }

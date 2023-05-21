@@ -1,4 +1,4 @@
-import { getI18nRandomItem, getI18nTranslation } from "./foundryUtils.js";
+import { getI18nTranslation } from "./foundryUtils.js";
 
 export const drawImageElement = (id, currentCombatantActorImage) => {
   const imgElement = document.createElement("img");
@@ -9,7 +9,7 @@ export const drawImageElement = (id, currentCombatantActorImage) => {
 
 const _drawMainTextElement = (id, currentCombatantName) => {
   const mainText = [
-    getI18nRandomItem("TurnIndicator.YourTurn", 1, 3),
+    getI18nTranslation("TurnIndicator.YourTurn"),
     currentCombatantName,
     "!",
   ];
