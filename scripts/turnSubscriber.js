@@ -45,20 +45,21 @@ export class TurnSubscriber {
 
         // Classic case
         // Character is not hidden
-        displayContainer = attachCSSClassesAnimation(displayContainer);
         displayContainer = drawClassicTurnIndicatorBanner(
           displayContainer,
           currentCombatant,
           currentRound
         );
 
+        // FadeInLeft
+        displayContainer =
+          fadeInCSSClassesClassicTurnIndicatorBanner(displayContainer);
+
+        // Publish the banner on the FoundryVTT DOM
         publishBannerDiv(displayContainer, TurnSubscriber.HEADER_ID);
 
-        setTimeout(function () {
-          console.log("Triggered !");
-          displayContainer.classList.remove("animate__fadeInLeft");
-          displayContainer.classList.add("animate__fadeOutLeft");
-        }, 3000);
+        // FadeOutLeft
+        fadeOutCSSClassesClassicTurnIndicatorBanner(displayContainer);
       });
     });
   }
@@ -90,15 +91,16 @@ const drawClassicTurnIndicatorBanner = (div, currentCombatant, round) => {
   return div;
 };
 
-const attachCSSClassesAnimation = (div) => {
-  div.classList.add(
-    "animate__animated",
-    "animate__delay-1s",
-    "animate__fadeInLeft"
-  );
+const fadeInCSSClassesClassicTurnIndicatorBanner = (div, verbose) => {
+  if (verbose) console.log("Pushing fading in left animation.");
+  div.classList.add("animate__animated", "animate__fadeInLeft");
   return div;
 };
 
-const deleteCSSClassesClassicTurnIndicatorBanner = (div) => {
-  div.classList.remove("animate__fadeInLeft");
+const fadeOutCSSClassesClassicTurnIndicatorBanner = (div, verbose) => {
+  setTimeout(function () {
+    if (verbose) console.log("Pushing fading out left animation.");
+    div.classList.remove("animate__fadeInLeft");
+    div.classList.add("animate__fadeOutLeft");
+  }, 3000);
 };
