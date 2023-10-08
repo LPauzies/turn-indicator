@@ -36,7 +36,6 @@
   "readme": "https://github.com/LPauzies/turn-indicator/README.md",
   "compatibility": {
     "minimum": 10,
-    "verified": 10,
-    "maximum": 10
+    "verified": 10
   }
 }
